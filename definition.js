@@ -21,12 +21,15 @@ Blockly.Blocks['scan_and_add_card'] = {
   init: function() {
     this.jsonInit({
       "type": "scan_and_add_card",
-      "message0": "quét và thêm thẻ RFID vào danh sách %1",
+      "message0": "quét và thêm thẻ RFID vào danh sách",
       "args0": [
         {
-          "type": "field_input",
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
           "name": "LISTNAME",
-          "text": "my_list"
+          "check": "String"
         }
       ],
       "previousStatement": null,
