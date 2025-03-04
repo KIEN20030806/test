@@ -1,7 +1,13 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="ÁNH SÁNG" colour="#ae00ae" icon="palette">
     <block type="scan_card" />
-    <block type="scan_and_add_card" />
+    <block type="scan_and_add_card">
+      <value name="LISTNAME">
+        <shadow type="text">
+          <field name="TEXT">my_list</field>
+        </shadow>
+      </value>
+    </block>
     <!-- <block type="veml6040_sensor _read_lux" />
     <block type="veml6040_sensor _read_cct" /> -->
   </category>
