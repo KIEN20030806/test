@@ -1,4 +1,4 @@
-Blockly.Blocks['scan_card'] = {
+Blockly.Blocks["scan_card"] = {
   init: function() {
     this.jsonInit({
       "type": "scan_card",
