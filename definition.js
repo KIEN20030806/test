@@ -39,52 +39,43 @@ Blockly.Blocks['scan_and_add_card'] = {
   }
 };
 
-Blockly.Blocks['control_relay_at_address'] = {
+
+Blockly.Blocks['change_relay_address'] = {
   init: function () {
     this.jsonInit({
-      "type": "control_relay_at_address",
-      "message0": "relay 4 kênh %1%2 địa chỉ %3%4",
+      "type": "change_relay_address",
+      "message0": "relay 4 kênh đổi địa chỉ relay %1 %2 thành %3",
       "args0": [
         {
-          "type": "field_dropdown",
-          "name": "state",
-          "options": [
-            ["bật", "1"],
-            ["tắt", "0"],
-            ["đảo trạng thái", "toggle"]
-          ]
-        },
-        {
-          "type": "field_dropdown",
-          "name": "relay",
-          "options": [
-            ["tất cả", "0"],
-            ["relay 1", "1"],
-            ["relay 2", "2"],
-            ["relay 3", "3"],
-            ["relay 4", "4"]
-          ]
-        },
-        {
           "type": "input_value",
-          "name": "address",
+          "name": "old_address",
           "check": "Number"
         },
-        { "type": "input_dummy" }
+        { "type": "input_dummy" },
+        {
+          "type": "input_value",
+          "name": "new_address",
+          "check": "Number"
+        }
       ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#18820c",
-      "tooltip": "Bật/tắt/đảo trạng thái relay tại địa chỉ được nhập",
+      "tooltip": "Đổi địa chỉ của một relay từ địa chỉ cũ sang địa chỉ mới",
       "helpUrl": ""
     });
   }
 };
 
-
-Blockly.Python['scan_and_add_card'] = function(block) {
-  var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
-  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *'; 
-  var code = "rfid.scan_and_add_card(" + listname + ")\n";
+Blockly.Python['change_relay_address'] = function (block) {
+  Blockly.Python.definitions_['import_relay_driver'] = 'from relay_4chs import *';
+  var old_address = Blockly.Python.valueToCode(block, 'old_address', Blockly.Python.ORDER_ATOMIC);
+  var new_address = Blockly.Python.valueToCode(block, 'new_address', Blockly.Python.ORDER_ATOMIC);
+  Blockly.Python.definitions_['relay_init_' + old_address] = `relay_${old_address} = RelayController(${old_address})`;
+  
+  var code = "";
+  code += `relay_${old_address}.change_relay_address(${new_address})\n`;
+  code += `relay_${new_address} = RelayController(${new_address})\n`;
+  code += `time.sleep_ms(100)\n`;
   return code;
 };
