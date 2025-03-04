@@ -1,21 +1,4 @@
-Blockly.Blocks['scan_card'] = {
-  init: function() {
-    this.jsonInit({
-      "type": "scan_card",
-      "message0": "rfid đọc thẻ",
-      "output": "String",
-      "colour": "#ae00ae",
-      "tooltip": "Đọc giá trị id thẻ",
-      "helpUrl": ""
-    });
-  }
-};
 
-Blockly.Python['scan_card'] = function(block) {
-  var code = 'rfid.scan_card()';
-  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *';
-  return code;
-};
 
 Blockly.Blocks['scan_and_add_card'] = {
   init: function() {
