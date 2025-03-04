@@ -43,7 +43,7 @@ Blockly.Blocks['control_relay_at_address'] = {
   init: function () {
     this.jsonInit({
       "type": "control_relay_at_address",
-      "message0": "relay 4 kênh %1%2 địa chỉ %3%4",
+      "message0": "relay 4  địa chỉ %1%2",
       "args0": [
         {
           "type": "input_value",
