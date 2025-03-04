@@ -44,7 +44,7 @@ Blockly.Blocks['read_relay_status_at_address'] = {
   init: function () {
     this.jsonInit({
       "type": "read_relay_status_at_address",
-      "message0": "kênh đọc trạng thái địa chỉ %2%3",
+      "message0": "kênh đọc trạng thái địa chỉ %1%2",
       "args0": [
         {
           "type": "input_value",
