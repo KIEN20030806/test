@@ -1,0 +1,17 @@
+{
+    "name": "Module RFID",
+    "description": "Thư viện cho module RFID đọc thẻ từ",
+    "libs": [
+        "rfid.py",
+        "rfid_expansion.py"
+    ],
+    "blocks": [
+        "definition.js"
+    ],
+    "toolbox": "toolbox.xml",
+    "languages": {
+        "en": "languages/en.js",
+        "vi": "languages/vi.js"
+    },
+    "poster": "poster.jpg"
+}
