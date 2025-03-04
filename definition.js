@@ -24,9 +24,9 @@ Blockly.Blocks['scan_and_add_card'] = {
       "message0": "quét và thêm thẻ RFID vào danh sách %1",
       "args0": [
         {
-          "type": "input_value",
+          "type": "field_input",
           "name": "LISTNAME",
-          "check": "String"
+          "text": "my_list"
         }
       ],
       "previousStatement": null,
@@ -37,6 +37,7 @@ Blockly.Blocks['scan_and_add_card'] = {
     });
   }
 };
+
 
 Blockly.Python['scan_and_add_card'] = function(block) {
   var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
