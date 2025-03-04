@@ -22,7 +22,7 @@ Blockly.Blocks['scan_and_add_card'] = {
     this.jsonInit({
       "colour": "#00aeae",
       "tooltip": "Quét thẻ RFID và thêm vào danh sách",
-      "message0": "quét và thêm thẻ vào danh sách %2 %3",
+      "message0": "quét và thêm thẻ vào danh sách %1 %2",
       "args0": [
         {
           "type": "input_value",
