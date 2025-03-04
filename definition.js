@@ -1,115 +1,129 @@
-Blockly.Blocks['veml6040_sensor_read_color'] = {
+Blockly.Blocks['scan_card'] = {
   init: function() {
     this.jsonInit({
-      "type": "veml6040_sensor_read_color",
-      "message0": "cảm biến VEML6040 đọc %1",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "COLOR",
-          "options": [
-            ["độ sáng (lux)", "LUX"], 
-            ["giá trị đỏ", "RED"],
-            ["giá trị xanh lá", "GREEN"],
-            ["giá trị xanh dương", "BLUE"],
-            ["nhiệt độ màu", "CCT"]
-          ]
-        }
-      ],
-      "output": "Number",
+      "type": "scan_card",
+      "message0": "rfid đọc thẻ",
+      "output": "String",
       "colour": "#ae00ae",
-      "tooltip": "Đọc giá trị RGB từ cảm biến",
+      "tooltip": "Đọc giá trị id thẻ",
       "helpUrl": ""
     });
   }
 };
 
-Blockly.Python['veml6040_sensor_read_color'] = function(block) {
-  var color = block.getFieldValue('COLOR');
-  var code = '';
-
-  if (color === 'LUX') {
-    code = 'veml6040_sensor.get_lux()';
-  } else if (color === 'CCT') {
-    code = 'veml6040_sensor.get_cct()';
-  } else {
-    code = 'veml6040_sensor.get_' + color.toLowerCase() + '()';
-  }
-
-  Blockly.Python.definitions_['import_veml6040_sensor'] = 'from veml6040_sensor import *';
-  
-  return [code, Blockly.Python.ORDER_ATOMIC];
+Blockly.Python['scan_card'] = function(block) {
+  var code = 'rfid.scan_card()';
+  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *';
+  return code;
 };
 
-Blockly.Blocks['veml6040_sensor_detect_color'] = {
+Blockly.Blocks['scan_and_add_card'] = {
   init: function() {
     this.jsonInit({
-      "type": "veml6040_sensor_detect_color",
-      "message0": "cảm biến VEML6040 phát hiện màu %1",
+      "type": "scan_and_add_card",
+      "message0": "quét và thêm thẻ RFID vào danh sách %1",
       "args0": [
         {
-          "type": "field_dropdown",
-          "name": "DETECT_COLOR",
-          "options": [
-            ["vàng", "yellow"],
-            ["đỏ", "red"],
-            ["xanh lá", "green"],
-            ["xanh lơ", "cyan"],
-            ["xanh dương", "blue"],
-            ["hồng thẫm", "magenta"]
-          ]
+          "type": "input_value",
+          "name": "LISTNAME",
+          "check": "String"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#00aeae",
+      "tooltip": "Quét thẻ RFID và thêm vào danh sách",
+      "helpUrl": ""
+    });
+  }
+};
+
+Blockly.Python['scan_and_add_card'] = function(block) {
+  var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
+  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *'; 
+  var code = "rfid.scan_and_add_card(" + listname + ")\n";
+  return code;
+};
+
+Blockly.Blocks['scan_and_check'] = {
+  init: function() {
+    this.jsonInit({
+      "type": "scan_and_check",
+      "message0": "qquét và kiểm tra thẻ trong danh sách %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LISTNAME",
+          "check": "String"
         }
       ],
       "output": "Boolean",
-      "colour": "#ae00ae",
-      "tooltip": "Phát hiện màu sắc cụ thể",
+      "colour": "#ff8800",
+      "tooltip": "Quét thẻ RFID và kiểm tra xem có trong danh sách không",
       "helpUrl": ""
     });
   }
 };
 
-Blockly.Python['veml6040_sensor_detect_color'] = function(block) {
-  var detectColor = block.getFieldValue('DETECT_COLOR');
-  var code = '(veml6040_sensor.Classify_Hue() == "' + detectColor + '")';
+Blockly.Python['scan_and_check'] = function(block) {
+  var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
+  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *'; 
+  var code = "rfid.scan_and_check(" + listname + ")";
   return [code, Blockly.Python.ORDER_ATOMIC];
 };
 
-
-
-Blockly.Blocks['veml6040_sensor_read_lux'] = {
+Blockly.Blocks['scan_and_remove_card'] = {
   init: function() {
     this.jsonInit({
-      "type": "veml6040_sensor_read_lux",
-      "message0": "cảm biến VEML6040 đọc độ sáng (lux)", 
-      "output": "Number",
-      "colour": "#ae00ae",
-      "tooltip": "Đọc giá trị độ sáng lux",
+      "type": "scan_and_remove_card",
+      "message0": "quét và xóa thẻ khỏi danh sách %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LISTNAME",
+          "check": "String"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#ff0000",
+      "tooltip": "Quét thẻ RFID và xóa khỏi danh sách nếu tồn tại",
       "helpUrl": ""
     });
   }
 };
 
-Blockly.Python['veml6040_sensor_read_lux'] = function(block) {
-  var code = 'veml6040_sensor.get_lux()'; 
-  return [code, Blockly.Python.ORDER_ATOMIC];
+Blockly.Python['scan_and_remove_card'] = function(block) {
+  var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
+  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *'; 
+  var code = "rfid.scan_and_remove_card(" + listname + ")\n";
+  return code;
 };
 
-Blockly.Blocks['veml6040_sensor_read_cct'] = {
+Blockly.Blocks['clear_list'] = {
   init: function() {
     this.jsonInit({
-      "type": "veml6040_sensor_read_cct",
-      "message0": "cảm biến VEML6040 đọc nhiệt độ màu",
-      "output": "Number",
-      "colour": "#ae00ae",
-      "tooltip": "Đọc giá trị nhiệt độ màu (CCT)",
+      "type": "clear_list",
+      "message0": "xóa danh sách %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "LISTNAME",
+          "check": "String"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#8B0000",
+      "tooltip": "Xóa danh sách thẻ RFID và file lưu trữ",
       "helpUrl": ""
     });
   }
 };
 
-Blockly.Python['veml6040_sensor_read_cct'] = function(block) {
-  var code = 'veml6040_sensor.get_cct()'; 
-  return [code, Blockly.Python.ORDER_ATOMIC];
+Blockly.Python['clear_list'] = function(block) {
+  var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
+  Blockly.Python.definitions_['import_rfid'] = 'from rfid import *'; 
+  var code = "rfid.clear_list(" + listname + ")\n";
+  return code;
 };
-
-Blockly.Python.definitions_['import_veml6040_sensor'] = 'from veml6040_sensor import VEML6040Sensor';
