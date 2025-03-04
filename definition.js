@@ -39,6 +39,28 @@ Blockly.Blocks['scan_and_add_card'] = {
   }
 };
 
+Blockly.Blocks['control_relay_at_address'] = {
+  init: function () {
+    this.jsonInit({
+      "type": "control_relay_at_address",
+      "message0": "relay 4 kênh %1%2 địa chỉ %3%4",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "address",
+          "check": "Number"
+        },
+        { "type": "input_dummy" }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#18820c",
+      "tooltip": "Bật/tắt/đảo trạng thái relay tại địa chỉ được nhập",
+      "helpUrl": ""
+    });
+  }
+};
+
 
 Blockly.Python['scan_and_add_card'] = function(block) {
   var listname = Blockly.Python.valueToCode(block, 'LISTNAME', Blockly.Python.ORDER_ATOMIC) || "''";
