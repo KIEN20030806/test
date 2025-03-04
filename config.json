@@ -1,9 +1,8 @@
 {
-    "name": "Module RFID",
-    "description": "Thư viện cho module RFID đọc thẻ từ",
+    "name": "Cảm biến ánh sáng và màu sắc VEML6040",
+    "description": "Thư viện cho module cảm biến VEML6040",
     "libs": [
-        "rfid.py",
-        "rfid_expansion.py"
+        "veml6040_sensor.py"
     ],
     "blocks": [
         "definition.js"
@@ -13,5 +12,5 @@
         "en": "languages/en.js",
         "vi": "languages/vi.js"
     },
-    "poster": "poster.jpg"
+    "poster": "anh_VEML6040.jpg"
 }
