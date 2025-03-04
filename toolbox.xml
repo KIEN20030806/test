@@ -8,6 +8,13 @@
           </shadow>
       </value>
     </block>
+    <block type="scan_and_add_card">
+      <value name="LISTNAME">
+        <shadow type="text">
+          <field name="TEXT">my_list</field>
+        </shadow>
+      </value>
+    </block>
     <!-- <block type="veml6040_sensor _read_lux" />
     <block type="veml6040_sensor _read_cct" /> -->
   </category>
