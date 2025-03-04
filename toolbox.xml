@@ -1,9 +1,8 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-  <category name="RFID" colour="#ae00ae" icon="">
-    <block type="scan_card"></block>
-    <block type="scan_and_add_card"></block>
-    <block type="scan_and_check"></block>
-    <block type="scan_and_remove_card"></block>
-    <block type="clear_list"></block>
+  <category name="ÁNH SÁNG" colour="#ae00ae" icon="palette">
+    <block type="veml6040_sensor_read_color" />
+    <block type="veml6040_sensor_detect_color" />
+    <!-- <block type="veml6040_sensor _read_lux" />
+    <block type="veml6040_sensor _read_cct" /> -->
   </category>
 </xml>
