@@ -40,42 +40,46 @@ Blockly.Blocks['scan_and_add_card'] = {
 };
 
 
-Blockly.Blocks['change_relay_address'] = {
+Blockly.Blocks['read_relay_status_at_address'] = {
   init: function () {
     this.jsonInit({
-      "type": "change_relay_address",
-      "message0": "relay 4 kênh đổi địa chỉ relay %1 %2 thành %3",
+      "type": "read_relay_status_at_address",
+      "message0": "relay 4 kênh đọc trạng thái %1 địa chỉ %2%3",
       "args0": [
         {
-          "type": "input_value",
-          "name": "old_address",
-          "check": "Number"
+          "type": "field_dropdown",
+          "name": "relay",
+          "options": [
+            ["tất cả", "0"],
+            ["relay 1", "1"],
+            ["relay 2", "2"],
+            ["relay 3", "3"],
+            ["relay 4", "4"]
+          ]
         },
-        { "type": "input_dummy" },
         {
           "type": "input_value",
-          "name": "new_address",
+          "name": "address",
           "check": "Number"
-        }
+        },
+        { "type": "input_dummy" }
       ],
-      "previousStatement": null,
-      "nextStatement": null,
+      "output": "Number",
       "colour": "#18820c",
-      "tooltip": "Đổi địa chỉ của một relay từ địa chỉ cũ sang địa chỉ mới",
+      "tooltip": "Đọc trạng thái của relay tại địa chỉ được nhập",
       "helpUrl": ""
     });
   }
 };
 
-Blockly.Python['change_relay_address'] = function (block) {
+Blockly.Python['read_relay_status_at_address'] = function (block) {
   Blockly.Python.definitions_['import_relay_driver'] = 'from relay_4chs import *';
-  var old_address = Blockly.Python.valueToCode(block, 'old_address', Blockly.Python.ORDER_ATOMIC);
-  var new_address = Blockly.Python.valueToCode(block, 'new_address', Blockly.Python.ORDER_ATOMIC);
-  Blockly.Python.definitions_['relay_init_' + old_address] = `relay_${old_address} = RelayController(${old_address})`;
   
-  var code = "";
-  code += `relay_${old_address}.change_relay_address(${new_address})\n`;
-  code += `relay_${new_address} = RelayController(${new_address})\n`;
-  code += `time.sleep_ms(100)\n`;
-  return code;
+  var relay = block.getFieldValue('relay');
+  var address = Blockly.Python.valueToCode(block, 'address', Blockly.Python.ORDER_ATOMIC);
+
+  Blockly.Python.definitions_['relay_init_' + address] = `relay_${address} = RelayController(${address})`;  
+  var code = `relay_${address}.get_relay(${relay})\n`;  // Đọc trạng thái relay
+  
+  return [code, Blockly.Python.ORDER_ATOMIC];
 };
